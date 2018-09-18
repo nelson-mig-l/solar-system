@@ -6,7 +6,7 @@ function init() {
     var clock = new THREE.Clock();
     var gui = new dat.GUI();
     
-    solarSystem = SolarSystem.heliocentric(new CubeMaterial('./texture/'), scene);
+    solarSystem = SolarSystem.heliocentric(new CelestialMaterial('./texture/'), scene);
 
     var light = new THREE.AmbientLight(0x404040, 0.5);
     scene.add(light);

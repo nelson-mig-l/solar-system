@@ -88,6 +88,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(30)
             .withDayDuration(0.5)
             .withOrbit(sun, 62)
+            .withRing(5, 4)
             .build();
     animated.push(saturn);
 
@@ -96,6 +97,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(84)
             .withDayDuration(0.6)
             .withOrbit(sun, 78)
+            .withRing(4, 3)
             .build();
     animated.push(uranus);
 
