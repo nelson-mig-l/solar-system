@@ -26,8 +26,8 @@ CelestialMaterial.prototype.asLambert = function (name) {
 
 CelestialMaterial.prototype.asLambertWithTransparency = function (name) {
     var loader = new THREE.TextureLoader();
-    var location = this.path + name + '/ring' + this.format;
-    var locationAlpha = this.path + name + '/ring-alpha' + this.format;
+    var location = this.path + name + '/' + name + this.format;
+    var locationAlpha = this.path + name + '/' + name + '-alpha' + this.format;
     var texture = loader.load(location);
     var textureAlpha = loader.load(locationAlpha);
     

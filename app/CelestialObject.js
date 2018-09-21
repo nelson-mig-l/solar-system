@@ -1,16 +1,13 @@
-function CelestialObject(size, material) {
-
+function CelestialObject(geometry, material) {
     THREE.Object3D.call(this);
 
     this.orbit = 0.0;
     this.axis = 0.0;
 
-    var geometry = new THREE.BoxGeometry(size, size, size);
     this.mesh = new THREE.Mesh(geometry, material);
     this.add(this.mesh);
 
     this.rotation.y = Math.random() * Math.PI * 2;
-    this.mesh.rotation.y = Math.random() * Math.PI * 2;
 }
 
 CelestialObject.prototype = Object.create(THREE.Object3D.prototype);

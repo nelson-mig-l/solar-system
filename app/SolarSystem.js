@@ -19,7 +19,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
     var sun = factory.create('sun')
             .withSize(6)
             .withLight(new THREE.PointLight(0xffffff, 1.2, 100))
-            .build();
+            .star();
     scene.add(sun);
 
     var mercury = factory.create('mercury')
@@ -27,7 +27,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(0.3)
             .withDayDuration(58)
             .withOrbit(sun, 8)
-            .build();
+            .planet();
     animated.push(mercury);
 
     var venus = factory.create('venus')
@@ -35,7 +35,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(0.6)
             .withDayDuration(241)
             .withOrbit(sun, 14)
-            .build();
+            .planet();
     animated.push(venus);
 
     var earth = factory.create('earth')
@@ -43,14 +43,14 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(1)
             .withDayDuration(1)
             .withOrbit(sun, 22)
-            .build();
+            .planet();
     animated.push(earth);
-
+    
     var moon = factory.create('moon')
             .withSize(0.5)
             .withYearDuration(0.075)
             .withOrbit(earth, 3)
-            .build();
+            .planet();
     animated.push(moon);
 
     var mars = factory.create('mars')
@@ -58,21 +58,21 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(2)
             .withDayDuration(1)
             .withOrbit(sun, 30)
-            .build();
+            .planet();
     animated.push(mars);
 
     var phobos = factory.create('phobos')
             .withSize(0.5)
             .withYearDuration(0.066)
             .withOrbit(mars, 2)
-            .build();
+            .planet();
     animated.push(phobos);
 
     var deimos = factory.create('deimos')
             .withSize(0.5)
             .withYearDuration(0.25)
             .withOrbit(mars, 3)
-            .build();
+            .planet();
     animated.push(deimos);
 
     var jupiter = factory.create('jupiter')
@@ -80,7 +80,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(12)
             .withDayDuration(0.4)
             .withOrbit(sun, 46)
-            .build();
+            .planet();
     animated.push(jupiter);
 
     var saturn = factory.create('saturn')
@@ -88,25 +88,37 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(30)
             .withDayDuration(0.5)
             .withOrbit(sun, 62)
-            .withRing(5, 4)
-            .build();
+            .planet();
     animated.push(saturn);
-
+        
+    var saturn_ring = factory.create('saturn-ring')
+            .withOrbit(saturn, 5)
+            .withSize(4)
+            .withYearDuration(0.5)
+            .ring();
+    animated.push(saturn_ring);
+    
     var uranus = factory.create('uranus')
             .withSize(4)
             .withYearDuration(84)
             .withDayDuration(0.6)
             .withOrbit(sun, 78)
-            .withRing(4, 3)
-            .build();
+            .planet();
     animated.push(uranus);
+
+    var uranus_ring = factory.create('uranus-ring')
+            .withOrbit(uranus, 4)
+            .withSize(3)
+            .withYearDuration(0.5)
+            .ring();
+    animated.push(uranus_ring);
 
     var neptune = factory.create('neptune')
             .withSize(4)
             .withYearDuration(165)
             .withDayDuration(0.6)
             .withOrbit(sun, 92)
-            .build();
+            .planet();
     animated.push(neptune);
 
     var pluto = factory.create('pluto')
@@ -114,13 +126,41 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(248)
             .withDayDuration(6)
             .withOrbit(sun, 98)
-            .build();
+            .planet();
     animated.push(pluto);
 
     return new SolarSystem(animated);
 };
 
-SolarSystem.geocentric = function () {
-    alert('geo');
+SolarSystem.geocentric = function (materialLoader, scene) {
+    scene.background = materialLoader.asBackground('milky');
+
+    var factory = new CelestialObjectFactory(materialLoader);
+    var animated = [];
+    
+    var earth = factory.create('earth')
+            .withSize(3)
+            .planet();
+    animated.push(earth);
+    
+    scene.add(earth);
+    
+    var moon = factory.create('moon')
+            .withSize(0.5)
+            .withYearDuration(0.075)
+            .withOrbit(earth, 3)
+            .planet();
+    animated.push(moon);
+    
+    var sun = factory.create('sun')
+            .withSize(6)
+            .withOrbit(earth, 22)
+            .withDayDuration(1)
+            .withYearDuration(1)
+            .withLight(new THREE.PointLight(0xffffff, 1.2, 100))
+            .star();
+    animated.push(sun);
+
+    return new SolarSystem(animated);
 };
 
