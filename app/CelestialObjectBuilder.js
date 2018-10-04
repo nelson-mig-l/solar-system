@@ -78,7 +78,6 @@ CelestialObjectBuilder.prototype.ring = function() {
     var material = this.materialLoader.asLambertWithTransparency(this.name);
     var obj = new CelestialObject(geometry, material);
     obj.name = this.name;
-    obj.add(this.light);
     if (this.orbitingWhat !== undefined) {
         obj.orbiting(this.orbitingWhat, 0);
     }
