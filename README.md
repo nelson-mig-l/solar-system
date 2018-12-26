@@ -8,6 +8,14 @@ https://nelson-mig-l.github.io/solar-system/
 
 ##Credits
 
+Made with: [Three.js](https://threejs.org/)
+
 Planets and moons textures: [planetpixelemporium.com](http://planetpixelemporium.com/planets.html)
 
 Milky way texture: [solarsystemscope.com](https://www.solarsystemscope.com/textures/)
+
+##License
+
+Source code and milky way texture under [Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) 
+
+Remaining textures are [Copyright &copy; by James Hastings-Trew](http://planetpixelemporium.com/planets.html)
