@@ -1,12 +1,65 @@
-function SolarSystem(animated) {
+function SolarSystem(animated, labels) {
     this.animated = animated;
+    
+    this.labels = labels;
 };
 
 SolarSystem.prototype.constructor = SolarSystem;
 
+
+
+SolarSystem.prototype.toScreenPosition = function(obj, camera, renderer)
+{
+    var vector = new THREE.Vector3();
+    
+    // TODO: need to update this when resize window
+    var widthHalf = 0.5*renderer.context.canvas.width;
+    var heightHalf = 0.5*renderer.context.canvas.height;
+    
+    obj.updateMatrixWorld();
+    vector.setFromMatrixPosition(obj.matrixWorld);
+    vector.project(camera);
+    
+    vector.x = ( vector.x * widthHalf ) + widthHalf;
+    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+    
+    return { 
+        x: vector.x,
+        y: vector.y
+    };
+
+};
+
+
 SolarSystem.prototype.animate = function (timeDelta) {
     this.animated.forEach(function (element) {
         element.animate(timeDelta);
+    });
+};
+
+SolarSystem.prototype.updateLabels = function (camera, renderer) {
+        
+    this.labels.forEach(function (element) {
+        //var proj = SolarSystem.toScreenPosition(element.divObject, camera, renderer);
+        
+        var vector = new THREE.Vector3();
+    
+        // TODO: need to update this when resize window
+        var widthHalf = 0.5*renderer.context.canvas.width;
+        var heightHalf = 0.5*renderer.context.canvas.height;
+    
+        element.divObject.updateMatrixWorld();
+        vector.setFromMatrixPosition(element.divObject.matrixWorld);
+        vector.project(camera);
+    
+        vector.x = ( vector.x * widthHalf ) + widthHalf;
+        vector.y = - ( vector.y * heightHalf ) + heightHalf;
+    
+
+
+        
+        element.divElement.style.left = vector.x + 'px';
+        element.divElement.style.top = vector.y + 'px';  
     });
 };
 
@@ -15,6 +68,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
 
     var factory = new CelestialObjectFactory(materialLoader);
     var animated = [];
+    var labels = [];
 
     var sun = factory.create('sun')
             .withSize(6)
@@ -43,8 +97,12 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .withYearDuration(1)
             .withDayDuration(1)
             .withOrbit(sun, 22)
+            //.withLabel()
             .planet();
     animated.push(earth);
+    var l = new CelestialLabel('Our home', earth.mesh.geometry);
+    earth.mesh.add(l.divObject);
+    labels.push(l);
     
     var moon = factory.create('moon')
             .withSize(0.5)
@@ -129,7 +187,7 @@ SolarSystem.heliocentric = function (materialLoader, scene) {
             .planet();
     animated.push(pluto);
 
-    return new SolarSystem(animated);
+    return new SolarSystem(animated, labels);
 };
 
 SolarSystem.geocentric = function (materialLoader, scene) {

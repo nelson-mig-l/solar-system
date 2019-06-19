@@ -54,6 +54,7 @@ CelestialObjectBuilder.prototype.planet = function () {
         obj.orbiting(this.orbitingWhat, this.orbitingDistance);
     }
     obj.speed(this.orbitalSpeed, this.axialSpeed);
+    
     return obj;
 };
 
@@ -67,6 +68,7 @@ CelestialObjectBuilder.prototype.star = function() {
         obj.orbiting(this.orbitingWhat, this.orbitingDistance);
     }
     obj.speed(this.orbitalSpeed, this.axialSpeed);
+  
     return obj;
 };
 

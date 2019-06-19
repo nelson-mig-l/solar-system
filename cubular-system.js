@@ -51,6 +51,7 @@ function update(renderer, scene, camera, controls, clock) {
     var timeDelta = clock.getDelta();
 
     solarSystem.animate(timeDelta);
+    solarSystem.updateLabels(camera, renderer);
    
     controls.update();
 
